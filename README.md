@@ -25,6 +25,45 @@ npm run dev
 
 ---
 
+## 📸 Visual Interface & Operational Snapshots
+
+### 1. Smart Factory Digital Twin & Executive Facility Showcase
+> 4K plant floor viewport with interactive floor telemetry hotspots, operational bay selector, and real-time Shift & Pub/Sub latency monitoring.
+
+![Digital Twin Facility Showcase](docs/screenshots/01_digital_twin_facility_showcase.png)
+
+### 2. Fleet Machinery Photographic Workbench
+> Real equipment photographs, live sensor telemetry sparklines, and manufacturer specification overlays.
+
+![Fleet Machinery Workbench](docs/screenshots/02_fleet_machinery_workbench.png)
+
+### 3. Precision CAD Engineering Blueprint & Defect Callout
+> High-precision technical CAD cross-section schematic with defect region callouts and DIN ISO 2768-m / ABEC 7 tolerance limits.
+
+![Precision CAD Blueprint](docs/screenshots/03_precision_cad_blueprint.png)
+
+### 4. Fullscreen Metrology Lightbox Zoom Modal
+> High-resolution inspection lightbox for analyzing mechanical bearing raceways and machinery components.
+
+![Fullscreen Lightbox Modal](docs/screenshots/04_fullscreen_metrology_lightbox.png)
+
+### 5. Multimodal Visual Quality Control & Optical Reticle Caliper
+> High-speed automated optical inspection with sub-millimeter bounding box segmentation, reticle caliper overlay, and batch defect thumbnails.
+
+![Visual Inspection Reticle](docs/screenshots/05_visual_inspection_reticle.png)
+
+### 6. Sustainable Campus Solar & Wind Microgrid
+> Net-zero factory campus with floating real-time microgrid generation telemetry for rooftop solar PV, wind turbine cluster, and BESS storage.
+
+![Sustainable Microgrid Campus](docs/screenshots/06_sustainable_microgrid_campus.png)
+
+### 7. Gemini 1.5 Pro Operational Copilot with Technical Grounding
+> Conversational reasoning assistant grounded in real-time sensor streams and technical engineering blueprints.
+
+![Gemini Copilot Workbench](docs/screenshots/07_gemini_copilot_technical_grounding.png)
+
+---
+
 ## 🏭 Core Solution Capabilities
 
 ### 1. Fleet Predictive Maintenance & RUL Estimation
