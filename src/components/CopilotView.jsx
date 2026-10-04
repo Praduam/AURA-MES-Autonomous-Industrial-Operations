@@ -10,7 +10,11 @@ import {
   FileText, 
   Cpu, 
   CheckCircle2,
-  HelpCircle
+  HelpCircle,
+  FileCode,
+  Maximize2,
+  Camera,
+  Compass
 } from 'lucide-react';
 
 export default function CopilotView({ 
@@ -21,6 +25,7 @@ export default function CopilotView({
 }) {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [copilotLightbox, setCopilotLightbox] = useState(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -239,6 +244,57 @@ export default function CopilotView({
           </div>
         </div>
 
+        {/* Engineering CAD Blueprint & Diagnostic Schematic Reference */}
+        <div className="glass-panel">
+          <div className="panel-header" style={{ marginBottom: '0.75rem' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <FileCode size={14} color="#00e5ff" /> Technical CAD Blueprint
+            </span>
+            <span style={{ fontSize: '0.7rem', color: '#d4af37' }}>ISO 2768-m / P4</span>
+          </div>
+
+          <div 
+            style={{ 
+              position: 'relative', 
+              borderRadius: '8px', 
+              overflow: 'hidden', 
+              cursor: 'pointer',
+              border: '1px solid rgba(0, 242, 254, 0.25)',
+              background: '#040b17'
+            }}
+            onClick={() => setCopilotLightbox({
+              title: 'CNC-04 Spindle Bearing — Precision Angular Contact CAD Blueprint',
+              src: '/assets/cad/cad_bearing_schematic.jpg'
+            })}
+          >
+            <img 
+              src="/assets/cad/cad_bearing_schematic.jpg" 
+              alt="Engineering CAD Blueprint of Ceramic Hybrid Bearing" 
+              style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block', filter: 'brightness(0.95)' }}
+            />
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              background: 'linear-gradient(180deg, transparent, rgba(4, 11, 23, 0.95))',
+              padding: '6px 8px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              fontSize: '0.68rem'
+            }}>
+              <span style={{ color: '#38bdf8', fontWeight: 600 }}>DWG: AC-B-7009-X1</span>
+              <span style={{ color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                <Maximize2 size={10} /> Enlarge Blueprint
+              </span>
+            </div>
+          </div>
+          <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: '6px' }}>
+            Grounding vector referenced by Gemini when formulating the CNC-04 spindle replacement SOP.
+          </div>
+        </div>
+
         {/* Autonomous Action Capabilities */}
         <div className="glass-panel">
           <div className="panel-header" style={{ marginBottom: '0.75rem' }}>
@@ -268,6 +324,34 @@ export default function CopilotView({
         </div>
       </div>
     </div>
+
+    {/* Copilot Lightbox Modal */}
+    {copilotLightbox && (
+      <div className="classic-lightbox-overlay" onClick={() => setCopilotLightbox(null)}>
+        <div className="classic-lightbox-content" onClick={(e) => e.stopPropagation()}>
+          <div className="lightbox-header">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Compass size={18} color="#00e5ff" />
+              <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc' }}>
+                {copilotLightbox.title}
+              </span>
+            </div>
+            <button className="btn-close" onClick={() => setCopilotLightbox(null)}>✕</button>
+          </div>
+          <div className="lightbox-image-box">
+            <img 
+              src={copilotLightbox.src} 
+              alt={copilotLightbox.title} 
+              style={{ width: '100%', maxHeight: '78vh', objectFit: 'contain', borderRadius: '8px' }}
+            />
+          </div>
+          <div className="lightbox-footer">
+            <span>High-Resolution Engineering Asset &bull; Grounded in Gemini Operational RAG</span>
+            <span style={{ color: '#d4af37' }}>DIN ISO 2768-m / ABEC 7 (P4) Aerospace Tolerance</span>
+          </div>
+        </div>
+      </div>
+    )}
     </div>
   );
 }

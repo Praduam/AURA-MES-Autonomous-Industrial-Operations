@@ -66,6 +66,74 @@ export default function SustainabilityView({ metrics }) {
         </div>
       </div>
 
+      {/* Sustainable Campus & Clean Microgrid Visual Showcase */}
+      <div className="glass-panel" style={{ marginBottom: '1.5rem', overflow: 'hidden', padding: 0 }}>
+        <div style={{ position: 'relative', width: '100%', minHeight: '260px', maxHeight: '340px', overflow: 'hidden' }}>
+          <img 
+            src="/assets/facility/factory_green_grid.jpg" 
+            alt="Sustainable Advanced Manufacturing Campus with Solar PV and Wind" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'brightness(0.92) contrast(1.05)' }}
+          />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, rgba(6, 11, 22, 0.3) 0%, rgba(6, 11, 22, 0.85) 100%)'
+          }} />
+
+          {/* Microgrid Overlay Badges */}
+          <div style={{ position: 'absolute', top: '16px', left: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <span className="classic-tag-gold" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}>
+              🌱 NET-ZERO EMISSION TARGET 2030
+            </span>
+            <span className="classic-tag-cyan" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}>
+              SOLAR & WIND MICROGRID ACTIVE
+            </span>
+          </div>
+
+          {/* Interactive Floating Hotspots on Image */}
+          <div className="sustainability-hotspots">
+            <div className="microgrid-pill" style={{ top: '22%', right: '28%' }}>
+              <div className="dot green" />
+              <div>
+                <div className="pill-title">WIND TURBINE CLUSTER</div>
+                <div className="pill-val">12.4 MW Real-Time</div>
+              </div>
+            </div>
+
+            <div className="microgrid-pill" style={{ top: '48%', left: '35%' }}>
+              <div className="dot cyan" />
+              <div>
+                <div className="pill-title">ROOFTOP SOLAR PV ARRAY</div>
+                <div className="pill-val">4.8 MW Peak Generation</div>
+              </div>
+            </div>
+
+            <div className="microgrid-pill" style={{ bottom: '24%', left: '8%' }}>
+              <div className="dot gold" />
+              <div>
+                <div className="pill-title">BESS BATTERY STORAGE</div>
+                <div className="pill-val">40 MWh (88% SOC)</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{
+            position: 'absolute',
+            bottom: '14px',
+            right: '16px',
+            background: 'rgba(9, 14, 26, 0.85)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderRadius: '6px',
+            padding: '6px 12px',
+            fontSize: '0.72rem',
+            color: '#cbd5e1'
+          }}>
+            Vertex AI Dynamic Load Shedding: <strong>Active Grid Balancing</strong>
+          </div>
+        </div>
+      </div>
+
       <div className="two-col-layout">
         {/* Left Column: Overall Equipment Effectiveness (OEE) Deep Breakdown */}
         <div className="glass-panel">

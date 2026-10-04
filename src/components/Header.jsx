@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Activity, 
   Camera, 
@@ -9,7 +9,11 @@ import {
   RotateCcw, 
   Zap, 
   ShieldCheck,
-  Cpu
+  Cpu,
+  Building2,
+  ChevronDown,
+  Clock,
+  Sparkles
 } from 'lucide-react';
 
 export default function Header({ 
@@ -21,23 +25,37 @@ export default function Header({
   setIsAutonomousActive,
   criticalCount
 }) {
+  const [selectedFacility, setSelectedFacility] = useState('Munich Alpha (Aerospace)');
+  const [clockStr, setClockStr] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setClockStr(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    }, 1000);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <header className="top-nav">
       <div className="brand-section">
-        <div className="brand-badge">
-          <Cpu size={24} />
+        <div className="classic-brand-crest">
+          <div className="crest-inner">
+            <Cpu size={20} color="#d4af37" />
+          </div>
         </div>
         <div className="brand-text">
-          <h1>
-            AURA-MES
-            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.4)', borderRadius: '4px', padding: '1px 6px' }}>
-              v2.4 AI-ENTERPRISE
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h1 className="classic-brand-title">
+              AURA<span style={{ color: '#d4af37' }}>-</span>MES
+            </h1>
+            <span className="classic-edition-badge">
+              ENTERPRISE AI
             </span>
-          </h1>
+          </div>
           <div className="brand-tagline">
-            Autonomous Industrial Operations & Efficiency 
+            Autonomous Industrial Operations &bull; 
             <span className="gcp-tag">
-              <Cloud size={11} /> Google Cloud Vertex AI & Gemini
+              <Cloud size={11} /> Vertex AI & Gemini
             </span>
           </div>
         </div>
@@ -48,7 +66,7 @@ export default function Header({
           className={`nav-tab-btn ${activeTab === 'maintenance' ? 'active' : ''}`}
           onClick={() => setActiveTab('maintenance')}
         >
-          <Activity size={16} />
+          <Activity size={15} />
           Predictive Maintenance
           {criticalCount > 0 && (
             <span style={{ background: '#ef4444', color: '#fff', borderRadius: '999px', fontSize: '0.65rem', padding: '0 5px', fontWeight: 700 }}>
@@ -61,7 +79,7 @@ export default function Header({
           className={`nav-tab-btn ${activeTab === 'vision' ? 'active' : ''}`}
           onClick={() => setActiveTab('vision')}
         >
-          <Camera size={16} />
+          <Camera size={15} />
           Visual Quality Control
         </button>
 
@@ -69,7 +87,7 @@ export default function Header({
           className={`nav-tab-btn ${activeTab === 'copilot' ? 'active' : ''}`}
           onClick={() => setActiveTab('copilot')}
         >
-          <Bot size={16} />
+          <Bot size={15} />
           Gemini Operations Copilot
         </button>
 
@@ -77,7 +95,7 @@ export default function Header({
           className={`nav-tab-btn ${activeTab === 'sustainability' ? 'active' : ''}`}
           onClick={() => setActiveTab('sustainability')}
         >
-          <TrendingUp size={16} />
+          <TrendingUp size={15} />
           OEE & Sustainability
         </button>
 
@@ -85,46 +103,59 @@ export default function Header({
           className={`nav-tab-btn ${activeTab === 'architecture' ? 'active' : ''}`}
           onClick={() => setActiveTab('architecture')}
         >
-          <Cloud size={16} />
+          <Cloud size={15} />
           GCP AI Architecture
         </button>
       </nav>
 
       <div className="status-pill-group">
+        {/* Plant facility selector */}
+        <div className="facility-selector-dropdown">
+          <Building2 size={13} color="#d4af37" />
+          <select 
+            value={selectedFacility} 
+            onChange={(e) => setSelectedFacility(e.target.value)}
+            className="classic-facility-select"
+          >
+            <option value="Munich Alpha (Aerospace)">Munich Alpha (Aerospace)</option>
+            <option value="Austin Smart Foundry (Bay 1-4)">Austin Smart Foundry</option>
+            <option value="Tokyo Precision Machining">Tokyo Precision Bay</option>
+          </select>
+        </div>
+
         <div className="live-badge">
           <div className="live-dot" />
-          <span>PUBSUB STREAM: LIVE</span>
+          <span style={{ fontFamily: 'var(--font-mono)' }}>{clockStr}</span>
         </div>
 
         <button 
-          className={`btn-secondary ${isAutonomousActive ? 'pulse-green' : ''}`}
+          className={`btn-classic-action ${isAutonomousActive ? 'active-pulse' : ''}`}
           onClick={() => setIsAutonomousActive(!isAutonomousActive)}
           title="Toggle closed-loop autonomous dispatch from Vertex AI to PLC"
-          style={isAutonomousActive ? { borderColor: '#10b981', color: '#34d399' } : {}}
         >
-          <Zap size={14} />
-          {isAutonomousActive ? 'Autonomous: Active' : 'Autonomous: Off'}
+          <Zap size={13} color={isAutonomousActive ? '#34d399' : '#94a3b8'} />
+          {isAutonomousActive ? 'Autonomous: On' : 'Manual Mode'}
         </button>
 
         <button 
-          className="btn-secondary" 
+          className="btn-classic-anomaly" 
           onClick={onSimulateAnomaly}
           title="Simulate sudden bearing vibration spike on CNC-04"
-          style={{ borderColor: 'rgba(239, 68, 68, 0.4)', color: '#fca5a5' }}
         >
-          <AlertTriangle size={14} color="#f87171" />
+          <AlertTriangle size={13} color="#f87171" />
           Inject Anomaly
         </button>
 
         <button 
-          className="btn-secondary" 
+          className="btn-classic-reset" 
           onClick={onResetNominal}
           title="Reset factory fleet to nominal operating profile"
         >
-          <RotateCcw size={14} />
+          <RotateCcw size={13} />
           Reset Fleet
         </button>
       </div>
     </header>
   );
 }
+

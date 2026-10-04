@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
+import FacilityHeroBanner from './components/FacilityHeroBanner';
 import MetricCards from './components/MetricCards';
 import PredictiveMaintenanceView from './components/PredictiveMaintenanceView';
 import VisualInspectionView from './components/VisualInspectionView';
@@ -313,6 +314,15 @@ Would you like me to execute an operational adjustment, simulate machine paramet
       />
 
       <main className="main-viewport">
+        {/* Digital Twin Smart Factory Overview Banner */}
+        <FacilityHeroBanner 
+          assets={assets}
+          onSelectAsset={(assetId) => {
+            setSelectedAssetId(assetId);
+            setActiveTab('maintenance');
+          }}
+        />
+
         {/* KPI Strip */}
         <MetricCards metrics={metrics} />
 

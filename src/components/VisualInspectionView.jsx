@@ -10,7 +10,8 @@ import {
   Sliders, 
   Sparkles,
   Info,
-  Maximize2
+  Maximize2,
+  Compass
 } from 'lucide-react';
 
 export default function VisualInspectionView({ 
@@ -22,6 +23,7 @@ export default function VisualInspectionView({
   const [showBoundingBoxes, setShowBoundingBoxes] = useState(true);
   const [showLaserSweep, setShowLaserSweep] = useState(true);
   const [showHeatmap, setShowHeatmap] = useState(false);
+  const [showReticle, setShowReticle] = useState(true);
   const [actionMessage, setActionMessage] = useState(null);
 
   const selectedSample = samples.find(s => s.id === selectedSampleId) || samples[0];
@@ -81,32 +83,31 @@ export default function VisualInspectionView({
               </div>
             </div>
 
-          {/* Sample Selector Tabs */}
-          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', overflowX: 'auto', paddingBottom: '4px' }}>
-            {samples.map((sample) => (
-              <button
-                key={sample.id}
-                onClick={() => setSelectedSampleId(sample.id)}
-                style={{
-                  padding: '0.5rem 0.9rem',
-                  borderRadius: '8px',
-                  border: sample.id === selectedSample.id 
-                    ? '1px solid #06b6d4' 
-                    : '1px solid rgba(255, 255, 255, 0.08)',
-                  background: sample.id === selectedSample.id 
-                    ? 'rgba(6, 182, 212, 0.15)' 
-                    : 'rgba(15, 23, 42, 0.6)',
-                  color: sample.id === selectedSample.id ? '#fff' : 'var(--text-secondary)',
-                  fontSize: '0.78rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.2s'
-                }}
-              >
-                {sample.partName.split(' ')[0]} ({sample.partNumber})
-              </button>
-            ))}
+          {/* Visual Sample Thumbnail Gallery Strip */}
+          <div className="inspection-sample-strip">
+            {samples.map((sample) => {
+              const isSelected = sample.id === selectedSample.id;
+              return (
+                <div
+                  key={sample.id}
+                  onClick={() => setSelectedSampleId(sample.id)}
+                  className={`sample-thumb-card ${isSelected ? 'active' : ''}`}
+                >
+                  <img 
+                    src={sample.image} 
+                    alt={sample.partName} 
+                    className="sample-thumb-preview" 
+                  />
+                  <div className="sample-thumb-info">
+                    <div className="sample-thumb-title">{sample.partName}</div>
+                    <div className="sample-thumb-meta">
+                      <span className="part-no">{sample.partNumber}</span>
+                      <span className="defect-count">{sample.defects.length} Defect(s)</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* Scanner Viewport with image, laser line, and bounding boxes */}
@@ -117,6 +118,23 @@ export default function VisualInspectionView({
               className="inspection-img" 
               style={showHeatmap ? { filter: 'contrast(1.6) saturate(2) hue-rotate(330deg)' } : {}}
             />
+
+            {/* Precision Optical Reticle & Measurement Caliper Overlay */}
+            {showReticle && (
+              <div className="optical-reticle-overlay">
+                <div className="reticle-crosshair-h" />
+                <div className="reticle-crosshair-v" />
+                <div className="reticle-ring-inner" />
+                <div className="reticle-ring-outer" />
+                <div className="reticle-corner tl" />
+                <div className="reticle-corner tr" />
+                <div className="reticle-corner bl" />
+                <div className="reticle-corner br" />
+                <div className="reticle-scale-x">
+                  <span>|</span><span>|</span><span>|</span><span>|</span><span>|</span>
+                </div>
+              </div>
+            )}
 
             {/* Laser scanning sweep line */}
             {showLaserSweep && <div className="scanner-laser-line" />}
@@ -201,7 +219,14 @@ export default function VisualInspectionView({
                 onClick={() => setShowHeatmap(!showHeatmap)}
                 style={showHeatmap ? { borderColor: '#f59e0b', color: '#fbbf24' } : {}}
               >
-                <Sparkles size={14} /> Heatmap Overlay
+                <Sparkles size={14} /> Heatmap
+              </button>
+              <button 
+                className={`btn-secondary ${showReticle ? 'active' : ''}`}
+                onClick={() => setShowReticle(!showReticle)}
+                style={showReticle ? { borderColor: '#10b981', color: '#34d399' } : {}}
+              >
+                <Compass size={14} /> Optical Reticle {showReticle ? 'ON' : 'OFF'}
               </button>
             </div>
 

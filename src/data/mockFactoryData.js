@@ -1,15 +1,34 @@
 // Factory Assets, Real-Time Telemetry, Vision Inspection Data, and GCP Architecture
 
+export const FACILITY_DATA = {
+  name: 'AURA Aerospace & Precision Dynamics',
+  campus: 'Campus Alpha — Advanced Manufacturing Cluster',
+  facilityImage: '/assets/facility/smart_factory_facility.jpg',
+  greenGridImage: '/assets/facility/factory_green_grid.jpg',
+  cadBearingImage: '/assets/cad/cad_bearing_schematic.jpg',
+  location: 'Munich Technology Park & Austin Foundry',
+  totalBays: 6,
+  activeNodes: 48,
+  networkLatency: '14ms',
+  shift: 'Shift 02 (Evening Operational Window: 14:00 - 22:00)',
+  plantManager: 'Dr. Evelyn Vance, VP of Industrial Reliability'
+};
+
 export const INITIAL_ASSETS = [
   {
     id: 'CNC-04',
     name: '5-Axis CNC Milling Center #04',
     category: 'Subtractive Machining',
     location: 'Bay 3 - Aerospace Machining Cell',
+    image: '/assets/machines/cnc_milling_center.jpg',
+    cadImage: '/assets/cad/cad_bearing_schematic.jpg',
+    manufacturer: 'DMG MORI / CELOS',
+    installedYear: '2023',
+    specSheet: '24,000 RPM Ceramic Spindle • HSK-A63 Tooling • 5-Axis Simultaneous Micro-Milling',
     status: 'warning', // 'healthy', 'warning', 'critical'
     healthScore: 71,
     rulHours: 42,
-    criticalComponent: 'Spindle High-Speed Ceramic Bearing',
+    criticalComponent: 'Spindle High-Speed Ceramic Bearing (7009-AC)',
     failureMode: 'Subsurface Bearing Outer-Race Flaking',
     recommendedAction: 'Throttle spindle feed to 75%, schedule bearing replacement during Bay 3 shift change (18:00)',
     metrics: {
@@ -32,6 +51,11 @@ export const INITIAL_ASSETS = [
     name: 'Gas Turbine Generator #01',
     category: 'Power & Cogeneration',
     location: 'Sub-Plant 1 - Energy Co-Gen',
+    image: '/assets/machines/gas_turbine_generator.jpg',
+    cadImage: '/assets/cad/cad_bearing_schematic.jpg',
+    manufacturer: 'Siemens Energy Heavy Machinery',
+    installedYear: '2021',
+    specSheet: '62MW Multi-Stage Impeller Turbine • 6,600 RPM Co-Gen Casing • High-Temp Inconel Alloy',
     status: 'critical',
     healthScore: 48,
     rulHours: 18,
@@ -57,6 +81,11 @@ export const INITIAL_ASSETS = [
     name: 'Robotic Stamping Press Arm #02',
     category: 'High-Speed Automated Press',
     location: 'Bay 1 - Heavy Stamping Line',
+    image: '/assets/machines/robotic_stamping_press.jpg',
+    cadImage: '/assets/cad/cad_bearing_schematic.jpg',
+    manufacturer: 'Fanuc Robotics / Schuler Stamping',
+    installedYear: '2024',
+    specSheet: '700kg High-Payload 6-Axis Articulated Arm • ±0.03mm Repeatability • Integrated Vacuum Gripper',
     status: 'healthy',
     healthScore: 94,
     rulHours: 480,
@@ -81,6 +110,11 @@ export const INITIAL_ASSETS = [
     name: 'Industrial Screw Chiller #03',
     category: 'HVAC & Cleanroom Utilities',
     location: 'Central Utilities Yard',
+    image: '/assets/machines/screw_chiller.jpg',
+    cadImage: '/assets/cad/cad_bearing_schematic.jpg',
+    manufacturer: 'Carrier Industrial Thermal Systems',
+    installedYear: '2022',
+    specSheet: '1,200 kW Dual Twin-Screw Compressor • R-134a Eco-Refrigerant • Variable Speed Eco-Drive',
     status: 'healthy',
     healthScore: 91,
     rulHours: 720,
