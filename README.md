@@ -27,6 +27,11 @@ npm run dev
 
 ## 📸 Visual Interface & Operational Snapshots
 
+### 0. Enterprise Proposed Solution Architecture Blueprint
+> Complete 6-tier cyber-physical architecture connecting industrial shopfloor edge assets to Google Cloud, Vertex AI predictive ML & Vision AI, Gemini multimodal cognitive reasoning, and closed-loop actuation.
+
+![AURA-MES Proposed Solution Architecture](docs/screenshots/00_proposed_solution_architecture.png)
+
 ### 1. Smart Factory Digital Twin & Executive Facility Showcase
 > 4K plant floor viewport with interactive floor telemetry hotspots, operational bay selector, and real-time Shift & Pub/Sub latency monitoring.
 
@@ -68,7 +73,21 @@ npm run dev
 
 The platform integrates physical shopfloor machinery with Google Cloud intelligence to enable autonomous closed-loop predictive maintenance and real-time optical quality inspection.
 
-### 1. High-Level Architecture & Data Pipeline
+### 🏛️ Proposed Solution Architecture Blueprint
+
+![AURA-MES Proposed Solution Architecture](docs/solution_architecture.png)
+
+> **Figure 1: Autonomous Closed-Loop Manufacturing Architecture**  
+> 1. **Shopfloor / Edge**: Industrial assets, sensors (vibration RMS, temperature, pressure), robotic assembly cells, 4K high-speed optical inspection cameras, PLCs (Siemens S7-1500 / Allen-Bradley), and industrial OPC-UA/MQTT edge gateways.  
+> 2. **Ingestion Layer**: Google Cloud Pub/Sub (real-time streaming telemetry at 48,200 msg/sec) and Google Cloud Storage (inspection frames, CAD blueprints, OEM manuals).  
+> 3. **Stream Analytics & Data**: Cloud Dataflow (Apache Beam sliding-window FFT & harmonics extraction) and BigQuery analytical lakehouse + BigQuery ML models.  
+> 4. **AI Brain**: Vertex AI Predictive ML (RUL forecasting & anomaly risk), Vertex AI Vision (sub-millimeter defect segmentation & metrology), and Gemini on Vertex AI (multimodal reasoning, RCA & autonomous function calling).  
+> 5. **Autonomous Actuation**: Google Cloud Run microservices & policy engine, closed-loop PLC control via OPC-UA/Modbus, and SAP S/4HANA / IBM Maximo emergency work order dispatch.  
+> 6. **Operations Command Center / PWA**: 3D digital twin viewport, predictive maintenance telemetry workbench, metrology inspection lightbox, and Gemini operational copilot.
+
+---
+
+### 1. High-Level Architecture & Data Pipeline (Interactive Flowchart)
 
 ```mermaid
 flowchart TB
@@ -234,6 +253,9 @@ sequenceDiagram
 
 ```
 ├── index.html                   # HTML entry point with fonts & metadata
+├── docs/                        # Architecture schematics & visual walkthrough assets
+│   ├── solution_architecture.png  # Enterprise Proposed Solution Architecture Blueprint
+│   └── screenshots/             # 4K operational UI snapshots (00 - 07)
 ├── src/
 │   ├── main.jsx                 # React root renderer
 │   ├── App.jsx                  # Main application state & simulation manager
@@ -242,6 +264,7 @@ sequenceDiagram
 │   │   └── mockFactoryData.js   # Telemetry, vision datasets & GCP architectures
 │   └── components/
 │       ├── Header.jsx           # Top nav, live stream badge & simulation bar
+│       ├── FacilityHeroBanner.jsx # 3D digital twin plant floor viewport
 │       ├── MetricCards.jsx       # OEE, scrap rate, and savings KPI strip
 │       ├── PredictiveMaintenanceView.jsx # Live telemetry, FFT spectrum & RUL
 │       ├── VisualInspectionView.jsx      # Optical scanner & Gemini vision RCA
@@ -250,6 +273,7 @@ sequenceDiagram
 │       └── CloudArchitectureView.jsx     # Interactive GCP architecture blueprint
 └── public/
     └── assets/
+        ├── solution_architecture.png     # Interactive architecture diagram asset
         └── inspection/          # High-resolution industrial macro assets
             ├── bearing_defect.jpg
             ├── pcb_defect.jpg

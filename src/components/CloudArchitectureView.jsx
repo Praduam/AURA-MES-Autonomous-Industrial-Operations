@@ -21,7 +21,8 @@ import {
   CheckCircle2,
   ExternalLink,
   SlidersHorizontal,
-  Activity
+  Activity,
+  Maximize2
 } from 'lucide-react';
 import { SUGGESTED_GCP_TECHNOLOGIES } from '../data/mockFactoryData';
 
@@ -29,6 +30,7 @@ export default function CloudArchitectureView({ stack }) {
   const [selectedNodeId, setSelectedNodeId] = useState('gemini');
   const [filterCategory, setFilterCategory] = useState('suggested'); // 'suggested', 'all', 'ai', 'data', 'compute'
   const [copied, setCopied] = useState(false);
+  const [showArchBlueprintModal, setShowArchBlueprintModal] = useState(false);
 
   const filteredStack = stack.filter(node => {
     if (filterCategory === 'suggested') {
@@ -151,6 +153,90 @@ export default function CloudArchitectureView({ stack }) {
           <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
             ⚡ Cloud Run
           </span>
+        </div>
+      </div>
+
+      {/* Proposed Solution Architecture Blueprint Showcase Banner */}
+      <div 
+        onClick={() => setShowArchBlueprintModal(true)}
+        style={{
+          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.85))',
+          border: '1px solid rgba(0, 242, 254, 0.35)',
+          borderRadius: '14px',
+          padding: '1.25rem',
+          marginBottom: '1.5rem',
+          cursor: 'pointer',
+          position: 'relative',
+          boxShadow: '0 8px 30px rgba(0, 242, 254, 0.08)',
+          transition: 'all 0.25s ease'
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '1.3rem' }}>🏛️</span>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+                  AURA-MES — Proposed Solution Architecture Blueprint
+                </h3>
+                <span className="badge" style={{ background: 'rgba(0, 242, 254, 0.15)', color: '#00f2fe', border: '1px solid rgba(0, 242, 254, 0.3)', fontSize: '0.68rem' }}>
+                  Autonomous Closed-Loop
+                </span>
+                <span className="badge" style={{ background: 'rgba(236, 72, 153, 0.15)', color: '#f472b6', border: '1px solid rgba(236, 72, 153, 0.3)', fontSize: '0.68rem' }}>
+                  Google Cloud • Vertex AI • Gemini
+                </span>
+              </div>
+              <p style={{ margin: '4px 0 0 0', fontSize: '0.78rem', color: '#94a3b8' }}>
+                6 Core Layers: Shopfloor Edge ➔ Pub/Sub & Storage ➔ Dataflow & BigQuery ➔ Vertex AI & Gemini Brain ➔ Cloud Run Actuation ➔ Command Center PWA
+              </p>
+            </div>
+          </div>
+          <button 
+            className="btn-primary" 
+            style={{ fontSize: '0.78rem', padding: '6px 14px', display: 'flex', alignItems: 'center', gap: '6px' }}
+            onClick={(e) => { e.stopPropagation(); setShowArchBlueprintModal(true); }}
+          >
+            <Maximize2 size={14} /> Fullscreen Schematic (4K)
+          </button>
+        </div>
+
+        <div style={{
+          position: 'relative',
+          borderRadius: '10px',
+          overflow: 'hidden',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          background: '#0a0f1d',
+          maxHeight: '320px'
+        }}>
+          <img 
+            src="/assets/solution_architecture.png" 
+            alt="AURA-MES Proposed Solution Architecture"
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block',
+              objectFit: 'cover',
+              objectPosition: 'top center'
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: 'linear-gradient(to top, rgba(10, 15, 29, 0.95), rgba(10, 15, 29, 0.2))',
+            padding: '1.25rem 1rem 0.6rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <span style={{ fontSize: '0.72rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>
+              CLICK ANYWHERE TO INSPECT COMPLETE HIGH-RESOLUTION ARCHITECTURE SCHEMATIC
+            </span>
+            <span style={{ fontSize: '0.72rem', color: '#cbd5e1', fontWeight: 600 }}>
+              🔎 Click to Zoom
+            </span>
+          </div>
         </div>
       </div>
 
@@ -444,6 +530,47 @@ export default function CloudArchitectureView({ stack }) {
           </div>
         </div>
       </div>
+
+      {/* Architecture Blueprint Lightbox Modal */}
+      {showArchBlueprintModal && (
+        <div className="classic-lightbox-overlay" onClick={() => setShowArchBlueprintModal(false)}>
+          <div className="classic-lightbox-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '1400px' }}>
+            <div className="lightbox-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Cloud size={20} color="#00e5ff" />
+                <span style={{ fontWeight: 700, color: '#f8fafc', fontSize: '1.05rem' }}>
+                  AURA-MES Proposed Solution Architecture — Autonomous Closed-Loop Intelligence
+                </span>
+                <span className="badge" style={{ background: 'rgba(0, 242, 254, 0.15)', color: '#00f2fe' }}>
+                  Google Cloud & Vertex AI
+                </span>
+              </div>
+              <button className="btn-close" onClick={() => setShowArchBlueprintModal(false)}>✕</button>
+            </div>
+            <div className="lightbox-image-box" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+              <img 
+                src="/assets/solution_architecture.png" 
+                alt="AURA-MES Proposed Solution Architecture"
+                style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+              />
+            </div>
+            <div className="lightbox-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                Autonomous closed-loop manufacturing intelligence: Edge Sensors/PLCs ➔ Pub/Sub ➔ Dataflow ➔ Vertex AI & BigQuery ➔ Gemini Multimodal ➔ Cloud Run Actuator ➔ Real-Time Command Center
+              </div>
+              <a 
+                href="/assets/solution_architecture.png" 
+                target="_blank" 
+                rel="noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.75rem', padding: '4px 10px', textDecoration: 'none' }}
+              >
+                Open Raw Image ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
